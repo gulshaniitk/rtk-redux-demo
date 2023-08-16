@@ -3,11 +3,15 @@ import axios from "axios";
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProduct",
-  async () => {
-    const response = await axios.get("https://dummyjson.com/products");
-    return response.data["products"];
+  async (val)=>{
+    const response=await axios.get(`https://dummyjson.com/products/search?q=${val.str}`);
+    return response.data['products'].filter((item)=>{
+      return item.price>=val.min && item.price<=val.max;
+    });
   }
 );
+
+
 
 const productSlice = createSlice({
   name: "products",
@@ -39,5 +43,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setProducts } = productSlice.actions;
+export const { setProducts} = productSlice.actions;
 export default productSlice.reducer;
