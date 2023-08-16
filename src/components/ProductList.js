@@ -1,7 +1,6 @@
 import React from "react";
 import Product from "./Product";
 import { useSelector } from "react-redux";
-import store from "../store/store";
 
 const ProductList = () => {
   const products = useSelector((state) => state.products);
